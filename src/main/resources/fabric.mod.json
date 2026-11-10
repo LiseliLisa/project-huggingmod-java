@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "huggingmod",
+  "version": "${version}",
+  "name": "HuggingMod",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/huggingmod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "liselilisa.huggingmod.client.HuggingmodDataGenerator"
+    ],
+    "client": [
+      "liselilisa.huggingmod.client.HuggingmodClient"
+    ],
+    "main": [
+      "liselilisa.huggingmod.Huggingmod"
+    ]
+  },
+  "mixins": [
+    "huggingmod.mixins.json",
+    {
+      "config": "huggingmod.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
