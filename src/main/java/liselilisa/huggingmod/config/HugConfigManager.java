@@ -21,6 +21,7 @@ public class HugConfigManager {
             .setPrettyPrinting()
             .create();
 
+    //Location needs to be changed in the future
     private static final Path CONFIG_FILE =
             FabricLoader.getInstance()
                     .getConfigDir()
