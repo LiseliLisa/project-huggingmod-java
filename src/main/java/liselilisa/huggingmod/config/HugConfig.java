@@ -5,16 +5,15 @@ import net.fabricmc.loader.api.FabricLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+// Sets the default values for the config json
+
 public class HugConfig {
-    private static final Path CONFIG_FILE =
-            FabricLoader.getInstance()
-                    .getConfigDir()
-                    .resolve("hugconfig.json");
+    private static double HugDistance = 3.0;
+    private static byte HugDurationTicks = 60;
+    private static byte HugCooldownSeconds = 3;
 
 
-    public static void load() {
-        if (!Files.exists(CONFIG_FILE)){
-
-        }
-    }
+    public static double getHugDistance(){return HugDistance;}
+    public static byte getHugDurationTicks(){return HugDurationTicks;}
+    public static byte getHugCooldownSeconds(){return HugCooldownSeconds;}
 }
