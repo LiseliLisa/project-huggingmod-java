@@ -51,7 +51,6 @@ public class HugConfigManager {
             if (json.has("hugCooldownSeconds")){
                 hugCooldownSeconds = json.get("hugCooldownSeconds").getAsByte();
             }
-
         }
         catch (IOException | RuntimeException e) {
             System.err.println(

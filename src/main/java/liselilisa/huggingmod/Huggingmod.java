@@ -1,5 +1,6 @@
 package liselilisa.huggingmod;
 
+import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
@@ -28,7 +29,7 @@ public class Huggingmod implements ModInitializer {
                                         }
                                         return builder.buildFuture();
                                     })
-                                    .then(Commands.argument("value", FloatArgumentType.floatArg())
+                                    .then(Commands.argument("value", DoubleArgumentType.doubleArg())
                                             .executes(HugCommands::ChangeSettings)
                                     )
                             )

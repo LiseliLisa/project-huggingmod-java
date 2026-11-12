@@ -1,16 +1,32 @@
 package liselilisa.huggingmod.command;
 
 
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import liselilisa.huggingmod.config.HugConfig;
 import liselilisa.huggingmod.config.HugConfigManager;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 
 public class HugCommands {
+    private static final Path CONFIG_FILE =
+            FabricLoader.getInstance()
+                    .getConfigDir()
+                    .resolve("hugconfig.json");
+
     public static int GetSettings(CommandContext<CommandSourceStack> context){
         context.getSource().sendSuccess(() -> Component.literal(
                 "[HuggingMod] Current Settings\n\n" +
@@ -24,15 +40,34 @@ public class HugCommands {
     public static int ChangeSettings(CommandContext<CommandSourceStack> context){
         String[] settings = {"hugDistance","hugDurationTicks","hugCooldownSeconds"};
         String setting = StringArgumentType.getString(context, "setting");
-        Float value = FloatArgumentType.getFloat(context, "value");
+        Double value = DoubleArgumentType.getDouble(context, "value");
 
         if (!Arrays.stream(settings).anyMatch(setting::equals)){
             context.getSource().sendFailure(Component.literal("[HuggingMod] Setting not found"));
             return 0;
         }
+        switch (setting){
+            case "hugDistance": {
+                HugConfig.setHugDistance(value);
+                HugConfigManager.save();
+                context.getSource().sendSuccess(() -> Component.literal("[HuggingMod] Configuration saved"),false);
+            };return 1;
+            case "hugDurationTicks": {
+                HugConfig.setHugDurationTicks(Byte.parseByte(value.toString()));
+                HugConfigManager.save();
+                context.getSource().sendSuccess(() -> Component.literal("[HuggingMod] Configuration saved"),false);
+            };return 1;
+            case "hugCooldownSeconds": {
+                HugConfig.setHugCooldownSeconds(Byte.parseByte(value.toString()));
+                HugConfigManager.save();
+                context.getSource().sendSuccess(() -> Component.literal("[HuggingMod] Configuration saved"),false);
+            };return 1;
+            default: {
+                context.getSource().sendFailure(Component.literal("[HuggingMod] Configuration could not be saved"));
+            };return 0;
+        }
 
-        context.getSource().sendSuccess(() -> Component.literal("[HuggingMod] Not yet implemented"),false);
-        return 1;
+
     }
 
 }
