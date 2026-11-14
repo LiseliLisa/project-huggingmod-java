@@ -1,23 +1,15 @@
 package liselilisa.huggingmod.command;
 
 
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
-import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import liselilisa.huggingmod.config.HugConfig;
 import liselilisa.huggingmod.config.HugConfigManager;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
+
 import java.nio.file.Path;
 import java.util.Arrays;
 
@@ -48,17 +40,17 @@ public class HugCommands {
         }
         switch (setting){
             case "hugDistance": {
-                HugConfig.setHugDistance(value);
+                HugConfigManager.hugDistance = value;
                 HugConfigManager.save();
                 context.getSource().sendSuccess(() -> Component.literal("[HuggingMod] Configuration saved"),false);
             };return 1;
             case "hugDurationTicks": {
-                HugConfig.setHugDurationTicks(Byte.parseByte(value.toString()));
+                HugConfigManager.hugDurationTicks = Byte.parseByte(value.toString());
                 HugConfigManager.save();
                 context.getSource().sendSuccess(() -> Component.literal("[HuggingMod] Configuration saved"),false);
             };return 1;
             case "hugCooldownSeconds": {
-                HugConfig.setHugCooldownSeconds(Byte.parseByte(value.toString()));
+                HugConfigManager.hugCooldownSeconds = Byte.parseByte(value.toString());
                 HugConfigManager.save();
                 context.getSource().sendSuccess(() -> Component.literal("[HuggingMod] Configuration saved"),false);
             };return 1;

@@ -1,20 +1,23 @@
 package liselilisa.huggingmod;
 
 import com.mojang.brigadier.arguments.DoubleArgumentType;
-import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import com.mojang.brigadier.suggestion.SuggestionProvider;
 import liselilisa.huggingmod.command.HugCommands;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.permissions.Permissions;
+import net.minecraft.resources.Identifier;
 
 public class Huggingmod implements ModInitializer {
+    public static final String MOD_ID = "huggingmod";
+
+    public static Identifier id(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
+    }
 
     @Override
     public void onInitialize() {
-
 
         CommandRegistrationCallback.EVENT.register((dispatcher, buildContext, selection) -> {
             dispatcher.register(Commands.literal("huggingmod")

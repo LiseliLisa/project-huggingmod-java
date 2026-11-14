@@ -62,9 +62,9 @@ public class HugConfigManager {
 
     public static void save(){
         JsonObject json = new JsonObject();
-        json.addProperty("hugDistance",HugConfig.getHugDistance());
-        json.addProperty("hugDurationTicks",HugConfig.getHugDurationTicks());
-        json.addProperty("hugCooldownSeconds",HugConfig.getHugCooldownSeconds());
+        json.addProperty("hugDistance",hugDistance);
+        json.addProperty("hugDurationTicks",hugDurationTicks);
+        json.addProperty("hugCooldownSeconds",hugCooldownSeconds);
 
         try {
             Files.createDirectories(
