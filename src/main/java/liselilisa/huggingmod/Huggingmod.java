@@ -3,8 +3,10 @@ package liselilisa.huggingmod;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import liselilisa.huggingmod.command.HugCommands;
+import liselilisa.huggingmod.network.HugNetworking;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.permissions.Permissions;
 import net.minecraft.resources.Identifier;
@@ -18,6 +20,7 @@ public class Huggingmod implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        HugNetworking.register();
 
         CommandRegistrationCallback.EVENT.register((dispatcher, buildContext, selection) -> {
             dispatcher.register(Commands.literal("huggingmod")
