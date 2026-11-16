@@ -1,4 +1,3 @@
-
 package liselilisa.huggingmod.network;
 
 import liselilisa.huggingmod.hug.HugManager;
