@@ -1,4 +1,3 @@
-
 package liselilisa.huggingmod.hug;
 
 import liselilisa.huggingmod.config.HugConfigManager;

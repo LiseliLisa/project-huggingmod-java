@@ -2,6 +2,8 @@ package liselilisa.huggingmod.client.input;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import liselilisa.huggingmod.Huggingmod;
+import liselilisa.huggingmod.client.hug.HugClientState;
+import liselilisa.huggingmod.client.network.HugClientNetworking;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
@@ -28,9 +30,28 @@ public class HugKeybinds {
             while (huggingKey.consumeClick()){
                 if (client.player == null) return;
 
-                client.player.sendSystemMessage(
-                        Component.literal("[HuggingMod] Hugging button pressed")
-                );
+                int playerId = client.player.getId();
+
+                if (HugClientState.isBeingHuged(playerId)){
+                    HugClientNetworking.sendHugAttempt(-1);
+                    client.player.sendSystemMessage(
+                            Component.literal(
+                                    "[HuggingMod] Reciprocating hug :D"
+                            )
+                    );
+                }
+
+                if (HugClientState.isInHug(playerId) || HugClientState.isGivingHug(playerId)) return;
+
+                int targetId = HugTargeting.getHugTarget(client);
+                if (targetId > 0){
+                    HugClientNetworking.sendHugAttempt(targetId);
+                    client.player.sendSystemMessage(
+                            Component.literal(
+                                    "[HuggingMod] Initiating hug :D"
+                            )
+                    );
+                }
             }
         });
     }
